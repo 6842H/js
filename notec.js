@@ -11,14 +11,17 @@ var mtimeout = 1500;
 
 /*展开或收起笔记*/
 function expandNoteCtrl(e){
-	if(!e.innerText)
+	if(!e || !e.innerText)
 		return;
-	var t = e.innerText=='展开' ? '收起' : '展开';
+	var t = (e.innerText=='展开↓') ? '收起↑' : '展开↓';
 	e.innerText=t;
-	e.title='点击'+ t +'每一条笔记';
+	e.title='点击'+ t +'每条笔记';
 	/*点击尾巴*/
 	Array.prototype.forEach.apply($("span.lookAll"),[(current,index) => {
-		current.click();
+		console.debug('innerText=', current.innerText, 't=', t);
+		if(current.innerText != t){
+			current.click();
+		}
 	}]);
 };
 
@@ -33,7 +36,7 @@ function getNotes(size=100, is_me=1, lesson_id=null){
 	});
 	NoteList.loadNext();
 	NoteList.resetParm(basic_params);
-	setTimeout(expandNoteCtrl, mtimeout);
+	setTimeout(function(){document.getElementById('mexpand').click();}, mtimeout);
 };
 
 /*变色*/
@@ -93,7 +96,7 @@ function replaceNotePanel(){
 	'<p onclick="showMyNotesInCourse(this)" class="fl" type="mine2" title="我的课程笔记">我的s</p>' +
 	'<p onclick="showAllNotesInLesson(this)" class="fl" type="all" title="全部单元笔记，原全部笔记">全部</p><!--全部笔记-->' +
 	'<p onclick="showAllNotesInCourse(this)" class="fl" type="all2" title="全部课程笔记">全部s</p>' +
-	'<pp id="mexpand" onclick="expandNoteCtrl(this)" class="fl" type="self_def" title="点击展开笔记">展开</pp>' +
+	'<pp id="mexpand" onclick="expandNoteCtrl(this)" class="fl" style="cursor:pointer;" type="self_def" title="点击展开↓笔记">展开↓</pp>' +
 	/*'<br>' +
 	'<p onclick="showMyNotesInLesson()" class="fl cur" type="mine" title="导出 我的单元笔记，原我的笔记">导出</p><!--我的笔记-->' +
 	'<p onclick="showMyNotesInCourse()" class="fl" type="mine2" title="导出 我的课程笔记">导出</p>' +
@@ -113,10 +116,3 @@ function init(){
 	console.debug('笔记模块已重置');
 };
 init();
-
-
-
-
-
-
-
