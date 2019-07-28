@@ -61,7 +61,7 @@ function collectNotes(){
 	var notes = '';
 	if(items && items.length>0){
 		console.debug('items.length=',items.length);
-		for(var i in items){
+		for(var i=0; i<items.length; i++){
 			if(!items[i].getElementsByClassName)
 				continue;
 			var author = items[i].getElementsByClassName('blue')[0].innerText;
