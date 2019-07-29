@@ -70,7 +70,6 @@ function collectNotes(){
 			notes += data+' by '+author+'\n'+content+'\n\n\n\n';
 		}
 	}
-	console.debug('notes=', notes);
 	return notes;
 };
 
