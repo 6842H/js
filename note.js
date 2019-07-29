@@ -174,4 +174,4 @@ function init(){
 	console.debug('笔记模块已重置');
 	$("#con_toolstab_2 .listTitle p")[0].click();
 };
-window.onload=init();
+init();
