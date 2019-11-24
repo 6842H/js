@@ -1,11 +1,12 @@
-
-function get_roc_id(){
+/*
+*/
+function get_roc_id(course_id){
 	var roc_id=null;
 	$.ajax({
 		type : "GET",
 		async: 0,
 		contentType: "application/json;charset=UTF-8",
-		url : "http://wsxy.chinaunicom.cn/api/learner/play/course/49146587/outline",
+		url : "http://wsxy.chinaunicom.cn/api/learner/play/course/"+course_id+"/outline",
 		data : null,
 		success : function(resp) {
 			roc_id=resp[1].id;
@@ -14,7 +15,6 @@ function get_roc_id(){
 	});
 	return roc_id+'';
 };
-
 
 function get_sessionTime(){
 	var sessionTime=null;
@@ -30,7 +30,7 @@ function get_sessionTime(){
 			console.debug('sessionTime=',sessionTime);
 		}
 	});
-	sessionTime=parseInt(sessionTime)+1;
+	sessionTime=parseInt(sessionTime)+2;
 	var h=(Array(2).join('0') + Math.floor(sessionTime/60)).slice(-2);
 	var m=(Array(2).join('0') + Math.ceil(sessionTime%60)).slice(-2); 
 	return h+':'+m+':'+'00';
@@ -67,7 +67,7 @@ function save_my_course(){
 	formdata.append("credit", "no-credit");
 	formdata.append("course.id", course_id);
 	formdata.append("classroom.id", t[1].split('classroomId=')[1]);
-	formdata.append("rco.id", get_roc_id());
+	formdata.append("rco.id", get_roc_id(course_id));
 	formdata.append("sessionTime", get_sessionTime());
 	formdata.append("terminalType", "PC");
 	$.ajax({
@@ -89,7 +89,6 @@ function save_my_course(){
 	}else{return null;}
 };
 
-
 function offering(){
 	var course_id=save_my_course();
 	if(course_id){
@@ -99,9 +98,12 @@ function offering(){
 };
 
 function sdbinit(){
-	var btn=document.querySelector('body > spk-root > spk-player > div > div.player-content.clearfix > div.save-logout.ng-tns-c39-3 > button');	
-	var sp=document.querySelector('body > spk-root > spk-player > div > div.player-content.clearfix > div.save-logout.ng-tns-c39-3 > button > span');
-	btn.onclick=offering;
-	sp.innerText='一键结课';
+	/*
+	$("span:contains('保存学习记录')").removeAttr('onclick').text('一键结课');
+	$('div.player-content.clearfix button').removeAttr('onclick').attr('onclick','offering();');
+	*/
+	var bt_cs=$('div.player-content.clearfix button').attr('class');
+	var sp_cs=$('div.player-content.clearfix button span').attr('class');
+	$('div.player-content.clearfix button').replaceWith("<button _ngcontent-c39 onclick='offering();' class='"+bt_cs+"'><span _ngcontent-c39 class='"+sp_cs+"'>一键结课</span></button>");
 }
 sdbinit();
