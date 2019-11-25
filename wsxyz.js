@@ -3,9 +3,11 @@ function sdbinit(){
 	/*
 	$("span:contains('保存学习记录')").removeAttr('onclick').text('一键结课');
 	$('div.player-content.clearfix button').removeAttr('onclick').attr('onclick','eval(_sdb);');
-	*/
 	var bt_cs=$('div.player-content.clearfix button').attr('class');
 	var sp_cs=$('div.player-content.clearfix button span').attr('class');
-	$('div.player-content.clearfix button').replaceWith("<button _ngcontent-c39 onclick='eval(_sdb);;' class='"+bt_cs+"'><span _ngcontent-c39 class='"+sp_cs+"'>一键结课</span></button>");
+	*/
+	var sp=$('div.player-content.clearfix button span').text('一键结课')
+	var bt=$('div.player-content.clearfix button').prop("outerHTML").replace('button ', 'button onclick="eval(_sdb)"');
+	$('div.player-content.clearfix button').replaceWith(bt);
 }
 sdbinit();
