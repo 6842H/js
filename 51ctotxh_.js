@@ -233,18 +233,18 @@ function heart_beat3(uid, uuid, lessonId, dt, interval=50, step_now=0, step=10){
 
 function widt3(interval=200, step=10){
 	var wejob_id=get_wejob_id();
-	if(!wejob_id){alert('初始化失败1');return;}
+	if(!wejob_id){alert('未获取到课程参数，请从我的课程>>体系化课程进入课程');return;}
 	
 	var course_list=get_course_list(wejob_id);
 	if(course_list.length==0){alert('无未结课程');return;};
 	
 	var temp=get_course_detail(course_list);
-	if(temp[0].length==0 || temp[1].length==0){alert('初始化失败2');return;};
+	if(temp[0].length==0 || temp[1].length==0){alert('获取未完课程列表为空');return;};
 	var course_detail=temp[0];
 	var pre_course_detail=temp[1];
 	
 	var uid=get_uid(pre_course_detail[0].lesson_id);
-	if(!uid){alert('初始化失败3');return;};
+	if(!uid){alert('获取uid失败');return;};
 	
 	window.steps=step*course_detail.length;
 	window.clc=course_detail.length;
@@ -262,7 +262,7 @@ function widt3(interval=200, step=10){
 	};
 	check_clc();
 	check_steps();
-};
+};widt3();
 
 var tdiv=$('#mainiframe').contents().find("button:contains('进入学习')").closest('div');
 var ass=$('#mainiframe').contents().find("button:contains('进入学习')").closest('a');
