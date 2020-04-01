@@ -104,7 +104,7 @@ function get_course_detail_cell(C){
 				}else{
 					var list=e.data.data;
 					for(var i=0; i<list.length; i++){
-						if(list[i].study_progress_info.study_progress!=100  && list[j].hasOwnProperty('duration')){
+						if(list[i].study_progress_info.study_progress!=100  && list[i].hasOwnProperty('duration')){
 							course_detail.push({
 								chapter_id:list[i].chapter_id, 
 								lesson_id:list[i].lesson_id,
@@ -268,7 +268,6 @@ var tdiv=$('#mainiframe').contents().find("button:contains('进入学习')").clo
 var ass=$('#mainiframe').contents().find("button:contains('进入学习')").closest('a');
 tdiv[0].innerHTML=ass[0].innerHTML.replace('进入学习', '一键结课').replace('button ', "button onclick='parent.widt3();'");
 for(var i=1;i<ass.length;i++){		
-tdiv[i].innerHTML=ass[i].innerHTML.replace('进入学习', '禁止点击').replace('button ', "button onclick=''");
+	tdiv[i].innerHTML=ass[i].innerHTML.replace('进入学习', '禁止点击').replace('button ', "button onclick=''");
 }
-
 
